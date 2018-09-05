@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>啾咪-柳暗花明又一村！</title>
+    <meta name="keywords" content="关键词1，关键词2"/>
+    <meta name="description"
+          content="介绍介绍介绍介绍"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="{{ url_for('static', filename = 'css/pure-min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename = 'css/iconfont.css') }}" rel="stylesheet">
+    <!--[if lte IE 8]>
+	<link rel="stylesheet" href="css/grids-responsive-old-ie-min.css">
+<![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/grids-responsive-min.css') }}">
+    <!--<![endif]-->
+    <link href="{{ url_for('static', filename = 'css/web.css') }}" rel="stylesheet">
+    <!--[if lt IE 9]>
+	<script src="js/html5.min.js"></script>
+<![endif]-->
+    <link href="{{ url_for('static', filename = 'css/idangerous.swiper.css') }}" rel="stylesheet">
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?9680550c7762a9627c452ba5c33d15fe";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div class="top" style="background-color:#000">
+    <div class="wrap">
+        <a class="logo" href="{{ url_for('home.index') }}">
+            <img src="{{ url_for('static', filename = 'picture/logo3.jpg') }}"><b>啾咪</b><span>内测版</span>
+        </a>
+        <div class="search"><a href="#"><b>Warning: </b>未满18岁不要点击!<i
+                class="icon iconfont icon-sousuo"></i></a></div>
+    </div>
+</div>
+<div class="wrap navbox">
+    <div class="notice" style="display:none">
+        <a href="#"><i class="icon iconfont icon-tongzhi"></i>新功能 : 关于[我的]功能的使用。</a>
+    </div>
+    <a href="#" class="my">
+        <img alt="" style="height:34px" src="{{ url_for('static', filename = 'picture/featured.png') }}"/><br/>我的</a>
+    {#顶部导航#}
+    <div class="nav" id="navbtn">
+        {% for v in range(0,9) %}
+            <a rel="{{ v }}" class="c{{ v+1 }} trans" href="javascript:;">
+                <i class="icon iconfont trans icon-tree{{ v+1 }}"></i>啾咪导航{{ v }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="main">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div id="slide0">
+                        {% include 'home/01.html' %}
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div id="slide1">
+                        {% include 'home/02.html' %}
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div id="slide2">
+                        {% include 'home/03.html' %}
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div id="slide3">
+                        {% include 'home/04.html' %}
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div id="slide4">
+                        {% include 'home/05.html' %}
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div id="slide5">
+                        {% include 'home/06.html' %}
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div id="slide6">
+                        {% include 'home/07.html' %}
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div id="slide7">
+                        {% include 'home/08.html' %}
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div id="slide8">
+                        {% include 'home/09.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="swiper-container"> -->
+    </div>
+    <div id="sc" class="icon iconfont icon-shoucang"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/jquery-1.12.4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/idangerous.swiper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/idangerous.swiper.progress.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.leanmodal.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.easing.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/web.js') }}"></script>
+<script type="text/javascript">
+    $(function () {
+        var currindex = getCookie('currIndex');
+        if (currindex == '') {
+            currindex = 0;
+            {#window.location.href = 'http://hao.xsldh.com/welcome/tutorial';#}
+            var explorer = navigator.userAgent;
+            home_create_swiper(currindex);
+        } else {
+            var explorer = navigator.userAgent;
+            home_create_swiper(currindex);
+        }
+
+        $('.item').click(function () {
+            var id = $(this).attr('rel');
+            $.get('', {id: id});
+        });
+
+        $('.swiper-slide li').mouseover(function () {
+            $(this).find('i').show();
+        }).mouseout(function () {
+            $(this).find('i').hide();
+        });
+        $('.swiper-slide li i').click(function () {
+            var Y = $(this).offset().top;
+            var X = $(this).offset().left;
+            var my = $('.my').offset();
+            var id = $(this).parent().find('.item').attr('rel');
+
+            $('#sc').css({'top': Y + 'px', 'left': X + 'px', 'border-radius': '15px'}).show()
+                .animate({top: '78px', left: (my.left + 3) + 'px'}, 1000, 'easeOutBounce', function () {
+                    $(this).fadeOut();
+                    $.get('http://hao.xsldh.com/welcome/customize_favourite', {id: id});
+                });
+        });
+
+    });
+</script>
+</body>
+</html>
