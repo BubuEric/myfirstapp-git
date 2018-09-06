@@ -5,6 +5,7 @@ from app.models import Admin
 from functools import wraps
 from app import db, app
 
+
 # csrf.init_app()
 
 
@@ -44,3 +45,24 @@ def login():
         # db.session.commit()
         return redirect(request.args.get("next") or url_for("admin.index"))
     return render_template("admin/login.html", form=form)
+
+
+# 退出
+@admin.route("/logout/")
+@admin_login_req
+def logout():
+    session.pop("admin", None)
+    session.pop("admin_id", None)
+    return redirect(url_for("admin.login"))
+
+
+# 导航管理
+@admin.route("/tag/list/", methods=["GET"])
+@admin_login_req
+def tag_list():
+    data = {
+        'title': 'a拉我拉我',
+        'url': ('aa', 'bb', 'cc'),
+    }
+    print(data)
+    return render_template('admin/tag_list.html')
