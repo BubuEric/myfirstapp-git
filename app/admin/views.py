@@ -57,12 +57,14 @@ def logout():
 
 
 # 导航管理
+@admin.route("/tag/add/", methods=["GET"])
+@admin_login_req
+def tag_add():
+    return render_template('admin/tag_add.html')
+
+
+# 导航列表
 @admin.route("/tag/list/", methods=["GET"])
 @admin_login_req
 def tag_list():
-    data = {
-        'title': 'a拉我拉我',
-        'url': ('aa', 'bb', 'cc'),
-    }
-    print(data)
     return render_template('admin/tag_list.html')

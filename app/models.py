@@ -17,6 +17,46 @@ class Admin(db.Model):
         return check_password_hash(self.pwd, pwd)
 
 
+# 网站网址
+class TagC(db.Model):
+    __tablename__ = "tagc"
+    id = db.Column(db.INTEGER, primary_key=True)  # 编号
+    name = db.Column(db.String(100), unique=True)  # 网站名称
+    url = db.Column(db.String(100), unique=True)  # 网站名称
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加时间
+
+
+    def __repr__(self):
+        return "<TagC %r>" % self.name
+
+
+# 二级标签
+class TagB(db.Model):
+    __tablename__ = "tagb"
+    id = db.Column(db.INTEGER, primary_key=True)  # 编号
+    name = db.Column(db.String(100), unique=True)  # 名称
+
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加时间
+
+
+    def __repr__(self):
+        return "<TagB %r>" % self.name
+
+
+# 一级标签
+class TagA(db.Model):
+    __tablename__ = "taga"
+    id = db.Column(db.INTEGER, primary_key=True)  # 编号
+    name = db.Column(db.String(100), unique=True)  # 名称
+    num = db.Column(db.INTEGER, primary_key=True)  # 序号
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加时间
+
+
+    def __repr__(self):
+        return "<TagA %r>" % self.name
+
+
+# 博客
 class Blog(db.Model):
     __tablename__ = 'blog'
     id = db.Column(db.INTEGER, primary_key=True)  # 编号

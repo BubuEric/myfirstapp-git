@@ -43,3 +43,41 @@ class LoginForm(FlaskForm):
         admin = Admin.query.filter_by(name=account).count()
         if admin == 0:
             raise ValidationError("账号不存在！")
+
+
+
+# 添加导航
+class TagForm(FlaskForm):
+    name = StringField(
+        label='网站名称',
+        validators=[
+            DataRequired('请输入网站名称'),
+        ],
+        description='网站名称',
+        render_kw={
+            'class': "form-control",
+            'id': "input_name",
+            'placeholder': "请输入网站名称！"
+        }
+    )
+
+    url = StringField(
+        label='网址',
+        validators=[
+            DataRequired('请输入网址'),
+        ],
+        description='网址',
+        render_kw={
+            'class': "form-control",
+            'id': "input_name",
+            'placeholder': "请输入标签网址！"
+        }
+    )
+
+    submit = SubmitField(
+        '编辑',
+        render_kw={
+            'class': "btn btn-primary"
+        }
+    )
+
