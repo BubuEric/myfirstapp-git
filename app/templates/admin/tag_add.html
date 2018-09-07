@@ -1,69 +1,48 @@
 {% extends "admin/admin.html" %}
-{% block css %}
-    <style>
-        .table > tbody > tr > td,
-        .table > tbody > tr > th,
-        .table > tfoot > tr > td,
-        .table > tfoot > tr > th,
-        .table > thead > tr > td,
-        .table > thead > tr > th {
-            vertical-align: middle;
-            text-align: center;
-        }
-    </style>
-{% endblock %}
+
 {% block content %}
+
     <div class="box box-primary">
+        {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+                {{ msg }}
+            </div>
+        {% endfor %}
+        {% for msg in get_flashed_messages(category_filter=["err"]) %}
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-ban"></i> 操作失败</h4>
+                {{ msg }}
+            </div>
+        {% endfor %}
         <div class="">
-            <h3>导航管理</h3>
+            <h3>添加导航</h3>
         </div>
         <div class="box-body table-responsive no-padding">
-            <table class="table table-hover">
-            <tbody>
-                <thead>
-                <tr>
-                    <th>
-                        序号
-                    </th>
-                    <th>
-                        名称
-                    </th>
-                    <th>
-                        顺序
-                    </th>
-                    <th>
-                        添加时间
-                    </th>
-                    <th class="center">
-                        操作
-                    </th>
-                </tr>
-                </thead>
-                {% for v in range(0,9) %}
-                    <tr class="odd gradeX">
-                        <td class="center">
-                            1
-                        </td>
-                        <td>
-                            啦啦啦
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td class="center">
-                            2018-08-08
-                        </td>
-                        <td>
-                            <a class="btn btn-primary btn-sm" href="#" role="button">详情</a>
-                            &nbsp;
-                            <a class="btn btn-warning btn-sm" href="#" role="button">编辑</a>
-                            &nbsp;
-                            <a class="btn btn-danger btn-sm" href="#" role="button">删除</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            <form method="post">
+                <div class="form-group">
+                    <label for="InputName">{{ form.name.label }}</label>
+                    {{ form.name }}
+                    {% for err in form.name.errors %}
+                        <div class="col-md-12">
+                            <font color="red">{{ err }}</font>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="InputNum">{{ form.num.label }}</label>
+                    {{ form.num }}
+                    {% for err in form.num.errors %}
+                        <div class="col-md-12">
+                            <font color="red">{{ err }}</font>
+                        </div>
+                    {% endfor %}
+                </div>
+                {{ form.csrf_token }}
+                {{ form.submit }}
+            </form>
         </div>
     </div>
 {% endblock %}

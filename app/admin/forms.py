@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, ValidationError
 from app.models import Admin
 
@@ -46,38 +46,38 @@ class LoginForm(FlaskForm):
 
 
 
-# 添加导航
+# 添加一级标签
 class TagForm(FlaskForm):
     name = StringField(
-        label='网站名称',
+        label='导航名称',
         validators=[
-            DataRequired('请输入网站名称'),
+            DataRequired('请输入导航名称'),
         ],
-        description='网站名称',
+        description='导航名称',
         render_kw={
             'class': "form-control",
-            'id': "input_name",
-            'placeholder': "请输入网站名称！"
+            'id': "InputName",
+            'placeholder': "请输入导航名称！"
         }
     )
 
-    url = StringField(
-        label='网址',
+    num = IntegerField(
+        label='序号',
         validators=[
-            DataRequired('请输入网址'),
+            DataRequired('请输入序号'),
         ],
-        description='网址',
+        description='序号',
         render_kw={
             'class': "form-control",
-            'id': "input_name",
-            'placeholder': "请输入标签网址！"
+            'id': "InputNum",
+            'placeholder': "请输入序号！"
         }
     )
 
     submit = SubmitField(
         '编辑',
         render_kw={
-            'class': "btn btn-primary"
+            'class': "btn btn-default pull-right"
         }
     )
 

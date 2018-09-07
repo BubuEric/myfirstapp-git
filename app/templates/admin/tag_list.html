@@ -1,4 +1,5 @@
 {% extends "admin/admin.html" %}
+{% import "ui/admin_page.html" as pg %}
 {% block css %}
     <style>
         .table > tbody > tr > td,
@@ -15,11 +16,11 @@
 {% block content %}
     <div class="box box-primary">
         <div class="">
-            <h3>导航管理</h3>
+            <h3>导航列表</h3>
         </div>
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover">
-            <tbody>
+                <tbody>
                 <thead>
                 <tr>
                     <th>
@@ -39,19 +40,19 @@
                     </th>
                 </tr>
                 </thead>
-                {% for v in range(0,9) %}
+                {% for v in page_data.items %}
                     <tr class="odd gradeX">
                         <td class="center">
-                            1
+                            {{ v.id }}
                         </td>
                         <td>
-                            啦啦啦
+                            {{ v.name }}
                         </td>
                         <td>
-                            0
+                            {{ v.num }}
                         </td>
                         <td class="center">
-                            2018-08-08
+                            {{ v.addtime }}
                         </td>
                         <td>
                             <a class="btn btn-primary btn-sm" href="#" role="button">详情</a>
@@ -65,13 +66,16 @@
                 </tbody>
             </table>
         </div>
+        <div class="box-footer clearfix">
+            {{ pg.page(page_data,'admin.tag_list') }}
+        </div>
     </div>
 {% endblock %}
 
 {% block js %}
     <script>
         $(document).ready(function () {
-            $("#g-2").addClass("active");
+            $("#g-3").addClass("active");
         });
     </script>
 {% endblock %}
