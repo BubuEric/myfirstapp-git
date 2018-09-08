@@ -27,10 +27,13 @@
                         序号
                     </th>
                     <th>
-                        名称
+                        网站名称
+                    </th>
+                     <th>
+                        网站网址
                     </th>
                     <th>
-                        顺序
+                        所属分类
                     </th>
                     <th>
                         添加时间
@@ -49,15 +52,18 @@
                             {{ v.name }}
                         </td>
                         <td>
-                            {{ v.num }}
+                            {{ v.url }}
+                        </td>
+                        <td>
+                            {{ v.tagname.id }}{{ v.tagname.name }}
                         </td>
                         <td class="center">
                             {{ v.addtime }}
                         </td>
                         <td>
-                            <a class="btn btn-warning btn-sm" href="{{ url_for('admin.tag_edit',id=v.id) }}" role="button">编辑</a>
+                            <a class="btn btn-warning btn-sm" href="{{ url_for('admin.tagurl_edit',id=v.id) }}" role="button">编辑</a>
                             &nbsp;
-                            <a class="btn btn-danger btn-sm" href="{{ url_for('admin.tag_del',id=v.id) }}" role="button">删除</a>
+                            <a class="btn btn-danger btn-sm" href="{{ url_for('admin.tagurl_del',id=v.id) }}" role="button">删除</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -65,7 +71,7 @@
             </table>
         </div>
         <div class="box-footer clearfix">
-            {{ pg.page(page_data,'admin.tag_list') }}
+            {{ pg.page(page_data,'admin.tagurl_list') }}
         </div>
     </div>
 {% endblock %}
@@ -73,7 +79,7 @@
 {% block js %}
     <script>
         $(document).ready(function () {
-            $("#g-3").addClass("active");
+            $("#g-7").addClass("active");
         });
     </script>
 {% endblock %}

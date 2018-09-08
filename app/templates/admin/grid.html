@@ -1,7 +1,7 @@
 <div>
     <ul class="nav nav-pills nav-stacked">
         <li id="g-1">
-            <a href="#"><i class="fa fa-fw fa-home"></i> 首页</a>
+            <a href="{{ url_for('admin.index') }}"><i class="fa fa-fw fa-home"></i> 首页</a>
         </li>
         <li id="g-2">
             <a href="{{ url_for('admin.tag_add') }}"><i class="fa fa-fw fa-folder"></i>添加导航</a>
@@ -10,17 +10,17 @@
             <a href="{{ url_for('admin.tag_list', page=1) }}"><i class="fa fa-fw fa-file-o"></i>导航列表</a>
         </li>
         <li id="g-4">
-            <a href="#"><i class="fa fa-fw fa-cog"></i>添加分类</a>
+            <a href="{{ url_for('admin.tagname_add') }}"><i class="fa fa-fw fa-cog"></i>添加分类</a>
         </li>
 
         <li id="g-5">
-            <a href="#"><i class="fa fa-fw fa-bank"></i>分类列表</a>
+            <a href="{{ url_for('admin.tagname_list', page=1) }}"><i class="fa fa-fw fa-bank"></i>分类列表</a>
         </li>
         <li id="g-6">
-            <a href="#"><i class="fa fa-fw fa-dropbox"></i>添加网站</a>
+            <a href="{{ url_for('admin.tagurl_add') }}"><i class="fa fa-fw fa-dropbox"></i>添加网站</a>
         </li>
         <li id="g-7">
-            <a href="#"><i class="fa fa-fw fa-twitter"></i>网站列表</a>
+            <a href="{{ url_for('admin.tagurl_list', page=1) }}"><i class="fa fa-fw fa-twitter"></i>网站列表</a>
         </li>
         <li id="g-8" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i>
