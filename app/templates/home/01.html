@@ -8,31 +8,15 @@
     </li>
 </ul>
 
-<h2 class="c1"><i class="icon iconfont icon-shuye1"></i> 最新电影</h2>
-<ul class="pure-g">
-    {% for v in range(0,11) %}
-    <li class="pure-u-1-2 pure-u-md-1-6">
-        <a class="item" target="_blank" href="http://www.lsjdyw.net/">老司机电影网</a>
-    </li>
-    {% endfor %}
-</ul>
+{% for b in data_tagname if b.tag_id==1 %}
+    <h2 class="c1"><i class="icon iconfont icon-shuye1"></i> {{ b.name }}</h2>
 
-<h2 class="c1"><i class="icon iconfont icon-shuye2"></i> 在线电影</h2>
-<ul class="pure-g">
+    <ul class="pure-g">
+        {% for v in data_tagurl if v.tagname_id==b.id %}
+            <li class="pure-u-1-2 pure-u-md-1-6">
+                <a class="item" target="_blank" href="{{ v.url }}">{{ v.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
 
-</ul>
-
-<h2 class="c1"><i class="icon iconfont icon-shuye3"></i> 网盘资源</h2>
-<ul class="pure-g">
-
-</ul>
-
-<h2 class="c1"><i class="icon iconfont icon-shuye4"></i> BT资源</h2>
-<ul class="pure-g">
-
-</ul>
-
-<h2 class="c1"><i class="icon iconfont icon-shuye5"></i> 生肉资源</h2>
-<ul class="pure-g">
-
-</ul>

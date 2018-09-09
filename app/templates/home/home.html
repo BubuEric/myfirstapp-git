@@ -49,9 +49,9 @@
         <img alt="" style="height:34px" src="{{ url_for('static', filename = 'picture/featured.png') }}"/><br/>我的</a>
     {#顶部导航#}
     <div class="nav" id="navbtn">
-        {% for v in range(0,9) %}
-            <a rel="{{ v }}" class="c{{ v+1 }} trans" href="javascript:;">
-                <i class="icon iconfont trans icon-tree{{ v+1 }}"></i>啾咪导航{{ v }}</a>
+        {% for tag in data_tag %}
+            <a rel="{{ tag.num-1 }}" class="c{{ tag.num+1 }} trans" href="javascript:;">
+                <i class="icon iconfont trans icon-tree{{ tag.num+1 }}"></i>{{ tag.name }}</a>
         {% endfor %}
     </div>
 </div>
@@ -60,51 +60,33 @@
     <div class="main">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div id="slide0">
-                        {% include 'home/01.html' %}
+                {% for id in data_tag %}
+                    <div class="swiper-slide">
+                        <div id="slide{{ id.num-1 }}">
+                            <h1>电视剧资源</h1>
+                            <h2 class="c{{ id.num }}" style=""><i class="icon iconfont icon-shuye8"></i>超级福利</h2>
+                            <ul class="pure-g">
+                                <li class="pure-u-1-2 pure-u-md-1-6">
+                                    <i class="icon iconfont icon-shoucang" style="display: none;"></i>
+                                    <a class="item" rel=""
+                                       target="_blank"
+                                       href="{{ url_for('home.fuli') }}"
+                                       style="color:red;font-weight: bold;">支付宝红包(升级版)</a>
+                                </li>
+                            </ul>
+                            {% for b in data_tagname if b.tag_id == id.num %}
+                                <h2 class="c{{ id.num }}"><i class="icon iconfont icon-shuye1"></i>{{ b.name }}</h2>
+                                <ul class="pure-g">
+                                    {% for v in data_tagurl if v.tagname_id==b.id %}
+                                        <li class="pure-u-1-2 pure-u-md-1-6">
+                                            <a class="item" target="_blank" href="{{ v.url }}">{{ v.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div id="slide1">
-                        {% include 'home/02.html' %}
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div id="slide2">
-                        {% include 'home/03.html' %}
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div id="slide3">
-                        {% include 'home/04.html' %}
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div id="slide4">
-                        {% include 'home/05.html' %}
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div id="slide5">
-                        {% include 'home/06.html' %}
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div id="slide6">
-                        {% include 'home/07.html' %}
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div id="slide7">
-                        {% include 'home/08.html' %}
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div id="slide8">
-                        {% include 'home/09.html' %}
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
         <!-- <div class="swiper-container"> -->
