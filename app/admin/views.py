@@ -259,7 +259,7 @@ def tagurl_list(page=None):
         Tagname.id == Tagurl.tagname_id
     ).order_by(
         Tagname.addtime.desc()
-    ).paginate(page=page, per_page=10)
+    ).paginate(page=page, per_page=50)
     return render_template("admin/tagurl_list.html", page_data=page_data)
 
 
