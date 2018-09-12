@@ -4,6 +4,7 @@ from app.admin.forms import LoginForm, TagForm, TagnameForm, TagurlForm
 from app.models import Admin, Tag, Tagname, Tagurl
 from functools import wraps
 from app import db, app
+import json
 
 
 # csrf.init_app()
@@ -81,6 +82,7 @@ def tag_add():
         redirect(url_for('admin.tag_add'))
     return render_template("admin/tag_add.html", form=form)
 
+
 # 编辑导航
 @admin.route("/tag/edit/<int:id>/", methods=["GET", "POST"])
 @admin_login_req
@@ -99,12 +101,13 @@ def tag_edit(id=None):
             flash("顺序序号已经存在！", "err")
             return redirect(url_for('admin.tag_edit', id=id))
         tag.name = data["name"]
-        tag.num=data["num"]
+        tag.num = data["num"]
         db.session.add(tag)
         db.session.commit()
         flash("修改导航成功！", "ok")
         redirect(url_for('admin.tag_edit', id=id))
     return render_template("admin/tag_edit.html", form=form, tag=tag)
+
 
 # 导航列表
 @admin.route("/tag/list/<int:page>/", methods=["GET"])
@@ -152,7 +155,6 @@ def tagname_add():
     return render_template("admin/tagname_add.html", form=form)
 
 
-
 # 编辑二级分类
 @admin.route("/tagname/edit/<int:id>/", methods=["GET", "POST"])
 @admin_login_req
@@ -169,12 +171,13 @@ def tagname_edit(id=None):
             flash("分类已经存在！", "err")
             return redirect(url_for('admin.tagname_edit', id=id))
         tagname.name = data["name"]
-        tagname.tag_id=data["tag_id"]
+        tagname.tag_id = data["tag_id"]
         db.session.add(tagname)
         db.session.commit()
         flash("修改分类成功！", "ok")
         redirect(url_for('admin.tagname_edit', id=id))
     return render_template("admin/tagname_edit.html", form=form, tagname=tagname)
+
 
 # 二级标签列表
 @admin.route("/tagname/list/<int:page>/", methods=["GET"])
@@ -224,6 +227,7 @@ def tagurl_add():
         redirect(url_for('admin.tagurl_add'))
     return render_template("admin/tagurl_add.html", form=form)
 
+
 # 编辑网站
 @admin.route("/tagurl/edit/<int:id>/", methods=["GET", "POST"])
 @admin_login_req
@@ -241,7 +245,7 @@ def tagurl_edit(id=None):
             return redirect(url_for('admin.tagurl_edit', id=id))
         tagurl.name = data["name"]
         tagurl.url = data["url"]
-        tagurl.tagname_id=data["tagname_id"]
+        tagurl.tagname_id = data["tagname_id"]
         db.session.add(tagurl)
         db.session.commit()
         flash("修改网站成功！", "ok")
@@ -267,13 +271,21 @@ def tagurl_list(page=None):
 @admin.route("/tagurl/list/", methods=["GET"])
 @admin_login_req
 def tagurl_listtest():
-    tagurltest_data = Tagurl.query.join(Tagname).filter(
-        Tagname.id == Tagurl.tagname_id
-    ).order_by(
-        Tagurl.addtime.desc()
-    )
-    return  render_template('admin/tagurl_listtest.html', tagurltest_data=tagurltest_data)
+    return render_template('admin/tagurl_listtest.html')
 
+
+# 网站数据
+@admin.route("/tagurl/data/", methods=["GET", "POST"])
+@admin_login_req
+def tagurl_data():
+    data_tagurl = Tagurl.query.all()
+    row = []
+    dicts = {}
+    for x in data_tagurl:
+        dicts = {'id': x.id, 'name': x.name, 'url': x.url, 'tagname_id': x.tagname_id}
+        row.append(dicts)
+    result = json.dumps(row)
+    return result
 
 
 # 网站删除
