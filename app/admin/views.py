@@ -258,9 +258,21 @@ def tagurl_list(page=None):
     page_data = Tagurl.query.join(Tagname).filter(
         Tagname.id == Tagurl.tagname_id
     ).order_by(
-        Tagname.addtime.desc()
+        Tagurl.addtime.desc()
     ).paginate(page=page, per_page=50)
     return render_template("admin/tagurl_list.html", page_data=page_data)
+
+
+# 网站列表测试
+@admin.route("/tagurl/list/", methods=["GET"])
+@admin_login_req
+def tagurl_listtest():
+    tagurltest_data = Tagurl.query.join(Tagname).filter(
+        Tagname.id == Tagurl.tagname_id
+    ).order_by(
+        Tagurl.addtime.desc()
+    )
+    return  render_template('admin/tagurl_listtest.html', tagurltest_data=tagurltest_data)
 
 
 
