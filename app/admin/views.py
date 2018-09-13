@@ -278,11 +278,13 @@ def tagurl_listtest():
 @admin.route("/tagurl/data/", methods=["GET", "POST"])
 @admin_login_req
 def tagurl_data():
-    data_tagurl = Tagurl.query.all()
+    data_tagurl = Tagurl.query.join(Tagname).filter(
+        Tagname.id == Tagurl.tagname_id
+    )
     row = []
     dicts = {}
     for x in data_tagurl:
-        dicts = {'id': x.id, 'name': x.name, 'url': x.url, 'tagname_id': x.tagname_id}
+        dicts = {'id': x.id, 'name': x.name, 'url': x.url, 'tagname_id': x.tagname.id,'tagname':x.tagname.name}
         row.append(dicts)
     result = json.dumps(row)
     return result

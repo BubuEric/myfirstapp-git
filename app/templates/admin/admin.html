@@ -61,15 +61,10 @@
         <div class="col-md-2 column" style="box-shadow: 5px 5px 1px #cccccc;">
             {% include 'admin/grid.html' %}
         </div>
-        <div class="col-md-8 column">
+        <div class="col-md-10 column">
             {% block content %}{% endblock %}
         </div>
-        <div class="col-md-2 column">
-            <div>
-                <p>啦啦啦</p>
-                <p>啦啦啦</p>
-            </div>
-        </div>
+
     </div>
 </div>
 <script src="{{ url_for('static',filename='bootstrap-3.3.7/js/jQuery-2.2.0.min.js') }}"></script>
