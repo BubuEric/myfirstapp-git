@@ -1,11 +1,11 @@
 from . import admin
-from flask import render_template, redirect, url_for, flash, session, request, abort
+from flask import render_template, redirect, url_for, flash, session, request, abort, jsonify
 from app.admin.forms import LoginForm, TagForm, TagnameForm, TagurlForm
 from app.models import Admin, Tag, Tagname, Tagurl
 from functools import wraps
 from app import db, app
 import json
-
+from flask_paginate import Pagination,get_page_parameter
 
 # csrf.init_app()
 
@@ -253,25 +253,29 @@ def tagurl_edit(id=None):
     return render_template("admin/tagurl_edit.html", form=form, tagurl=tagurl)
 
 
+# # 网站列表
+# @admin.route("/tagurl/list/", methods=["GET"])
+# @admin_login_req
+# def tagurl_list():
+#     PER_PAGE = 20
+#     total = Tagurl.query.count()
+#     page = request.args.get(get_page_parameter(),type=int,default=1)
+#     start = (page-1)*PER_PAGE
+#     end = start +PER_PAGE
+#     pagination = Pagination(bs_version=3,page=page,total=total)
+#     articles = Tagurl.query.slice(start,end)
+#     context ={
+#         'pagination':pagination,
+#         'articles':articles
+#     }
+#     return render_template("admin/tagurl_list.html", **context)
+
+
 # 网站列表
-@admin.route("/tagurl/list/<int:page>/", methods=["GET"])
-@admin_login_req
-def tagurl_list(page=None):
-    if page is None:
-        page = 1
-    page_data = Tagurl.query.join(Tagname).filter(
-        Tagname.id == Tagurl.tagname_id
-    ).order_by(
-        Tagurl.addtime.desc()
-    ).paginate(page=page, per_page=50)
-    return render_template("admin/tagurl_list.html", page_data=page_data)
-
-
-# 网站列表测试
 @admin.route("/tagurl/list/", methods=["GET"])
 @admin_login_req
-def tagurl_listtest():
-    return render_template('admin/tagurl_listtest.html')
+def tagurl_list():
+    return render_template('admin/tagurl_list.html')
 
 
 # 网站数据
@@ -281,13 +285,15 @@ def tagurl_data():
     data_tagurl = Tagurl.query.join(Tagname).filter(
         Tagname.id == Tagurl.tagname_id
     )
+    info = request.values
+    limit = info.get('limit', 10)  # 每页显示的条数
+    offset = info.get('offset', 0)  # 分片数，(页码-1)*limit，它表示一段数据的起点
     row = []
     dicts = {}
     for x in data_tagurl:
         dicts = {'id': x.id, 'name': x.name, 'url': x.url, 'tagname_id': x.tagname.id,'tagname':x.tagname.name}
         row.append(dicts)
-    result = json.dumps(row)
-    return result
+    return jsonify({'total':len(row),'rows':row[int(offset):(int(offset)+int(limit))]})
 
 
 # 网站删除
