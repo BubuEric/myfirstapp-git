@@ -232,7 +232,7 @@ def tagurl_add():
 
 
 # 编辑网站
-@admin.route("/tagurl/edit/<int:id>/", methods=["GET", "POST"])
+@admin.route("/tagurl/list/edit/<int:id>/", methods=["GET"])
 @admin_login_req
 # @admin_auth
 def tagurl_edit(id=None):
@@ -300,7 +300,7 @@ def tagurl_data():
 
 
 # 网站删除
-@admin.route("/tagurl/del/<int:id>/", methods=["GET"])
+@admin.route("/tagurl/list/del/<int:id>/", methods=["GET", "POST"])
 @admin_login_req
 # @admin_auth
 def tagurl_del(id=None):
@@ -308,4 +308,4 @@ def tagurl_del(id=None):
     db.session.delete(tagurl)
     db.session.commit()
     flash("删除分类成功！", "ok")
-    return redirect(url_for('admin.tagurl_list', page=1))
+    return redirect(url_for('admin.tagurl_list'))

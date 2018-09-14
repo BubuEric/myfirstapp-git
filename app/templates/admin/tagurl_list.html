@@ -26,7 +26,7 @@
 {% endblock %}
 {% block js %}
     <script src="{{ url_for('static',filename='js/bootstrap-table.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/bootstrap-table-zh-CH.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap-table-zh-CN.js') }}"></script>
     <script>
         $(function () {
             //1.初始化Table
@@ -60,9 +60,7 @@
                     showRefresh: true,                  //是否显示刷新按钮
                     minimumCountColumns: 2,             //最少允许的列数
                     clickToSelect: true,                //是否启用点击选中行
-                    //height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
                     uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
-                    //showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
                     cardView: false,                    //是否显示详细视图
                     detailView: false,                   //是否显示父子表
                     columns: [
@@ -144,14 +142,19 @@
             // 点击修改按钮执行的方法
             'click #btn_edit': function (e, value, row, index) {
                 // 写自己的方法。。。
-                var url = 'http://127.0.0.1:5000/admin/tagurl/edit/';
-                console.log(url)
-                $.post(url, {'id': row.id});
-                console.log('11111')
+                window.location.href = 'edit/' + row.id;
+                console.log('11111');
             },
             // 点击删除按钮执行的方法
             'click #btn_delete': function (e, value, row, index) {
-
+                var r = confirm("确认删除此网站？");
+                if (r == true) {
+                    window.location.href='del/'+row.id;
+                }
+                else {
+                    alert("取消删除！");
+                }
+                console.log('11111');
             }
         };
     </script>
