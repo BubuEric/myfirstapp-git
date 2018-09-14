@@ -1,5 +1,4 @@
 {% extends "admin/admin.html" %}
-{% import "ui/admin_page.html" as pg %}
 {% block css %}
     <style>
         .table > tbody > tr > td,
@@ -47,7 +46,7 @@
                     </th>
                 </tr>
                 </thead>
-                {% for v in page_data.items %}
+                {% for v in articles %}
                     <tr class="odd gradeX">
                         <td class="center">
                             {{ v.id }}
@@ -74,7 +73,7 @@
             </table>
         </div>
         <div class="box-footer clearfix">
-            {{ pg.page(page_data,'admin.tagname_list') }}
+            {{ pagination.links }}
         </div>
     </div>
 {% endblock %}

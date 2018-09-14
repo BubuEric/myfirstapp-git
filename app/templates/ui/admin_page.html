@@ -1,4 +1,4 @@
-{% macro page(data,url) %}
+{%- macro page(data,url) %}
     {% if data %}
         <ul class="pagination pagination-sm no-margin pull-right">
             <li><a href="{{ url_for(url,page=1) }}">首页</a></li>
@@ -26,4 +26,4 @@
             <li><a href="{{ url_for(url,page=data.pages) }}">尾页</a></li>
         </ul>
     {% endif %}
-{% endmacro %}
+{%- endmacro %}

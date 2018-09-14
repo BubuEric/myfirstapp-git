@@ -7,7 +7,6 @@ from app import db, app
 import json
 from flask_paginate import Pagination,get_page_parameter
 
-# csrf.init_app()
 
 
 # 登录装饰器
@@ -180,17 +179,21 @@ def tagname_edit(id=None):
 
 
 # 二级标签列表
-@admin.route("/tagname/list/<int:page>/", methods=["GET"])
+@admin.route("/tagname/list/", methods=["GET"])
 @admin_login_req
-def tagname_list(page=None):
-    if page is None:
-        page = 1
-    page_data = Tagname.query.join(Tag).filter(
-        Tag.id == Tagname.tag_id
-    ).order_by(
-        Tagname.addtime.desc()
-    ).paginate(page=page, per_page=10)
-    return render_template("admin/tagname_list.html", page_data=page_data)
+def tagname_list():
+    PER_PAGE = 10
+    total = Tagname.query.count()
+    page = request.args.get(get_page_parameter(),type=int,default=1)
+    start = (page-1)*PER_PAGE
+    end = start +PER_PAGE
+    pagination = Pagination(bs_version=3,page=page,total=total)
+    articles = Tagname.query.slice(start,end)
+    context ={
+        'pagination':pagination,
+        'articles':articles
+    }
+    return render_template("admin/tagname_list.html", **context)
 
 
 # 分类删除
