@@ -8,7 +8,6 @@ import json
 from flask_paginate import Pagination,get_page_parameter
 
 
-
 # 登录装饰器
 def admin_login_req(f):
     @wraps(f)

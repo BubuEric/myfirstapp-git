@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>啾咪-柳暗花明又一村！</title>
-    <meta name="keywords" content="关键词1，关键词2"/>
+    <title>啾咪导航-柳暗花明又一村！</title>
+    <meta name="keywords" content="啾咪,啾咪导航,啾咪搜索,柳暗花明又一村,上网导航,导航,网址,搜索,音乐,娱乐,图片,社区"/>
     <meta name="description"
-          content="介绍介绍介绍介绍"/>
+          content="啾咪导航-收录600多实用网站，包括了电影资源，电视剧资源，音乐，阅读，模板素材，软件工具，知识文库等各大分类。页面清爽，酷炫，无广告，是一个类目齐全，功能强大，非常实用的导航网站。"/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -22,20 +22,50 @@
 <![endif]-->
     <link href="{{ url_for('static', filename = 'css/idangerous.swiper.css') }}" rel="stylesheet">
     <script>
-        var _hmt = _hmt || [];
         (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?9680550c7762a9627c452ba5c33d15fe";
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
             var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
+            s.parentNode.insertBefore(bp, s);
         })();
     </script>
+    <style>
+        .footer {
+            background: #333;
+            border-top: 8px solid #d56464;
+            position: relative;
+        }
+
+        .footer-inner {
+            max-width: 1226px;
+            padding: 16px 20px 14px;
+            margin: 0 auto;
+            color: #aaa;
+            text-shadow: 0 -1px 0 #333;
+        }
+
+        .footer .footer-inner .copyright {
+            text-align: center;
+            font-size: small;
+            float: none !important;
+        }
+
+        .footer a {
+            color: #aaa;
+        }
+    </style>
 </head>
 <body>
 <div class="top" style="background-color:#000">
     <div class="wrap">
         <a class="logo" href="{{ url_for('home.index') }}">
-            <img src="{{ url_for('static', filename = 'picture/logo3.jpg') }}"><b>啾咪</b><span>内测版</span>
+            <img src="{{ url_for('static', filename = 'picture/logo3.jpg') }}"><b>啾咪导航</b><span>内测版</span>
         </a>
         <div class="search"><a href="#"><b>Warning: </b>未满18岁不要点击!<i
                 class="icon iconfont icon-sousuo"></i></a></div>
@@ -91,6 +121,14 @@
         </div>
         <!-- <div class="swiper-container"> -->
     </div>
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="copyright pull-left">
+                <a href="https://jiumic.top " title="啾咪导航">啾咪导航 丨 </a>
+                <a href="">琼ICP备18002729号-1</a>
+            </div>
+        </div>
+    </footer>
     <div id="sc" class="icon iconfont icon-shoucang"></div>
 </div>
 
@@ -105,7 +143,7 @@
         var currindex = getCookie('currIndex');
         if (currindex == '') {
             currindex = 0;
-            {#window.location.href = 'http://hao.xsldh.com/welcome/tutorial';#}
+            {#window.location.href = '#';#}
             var explorer = navigator.userAgent;
             home_create_swiper(currindex);
         } else {
@@ -132,7 +170,7 @@
             $('#sc').css({'top': Y + 'px', 'left': X + 'px', 'border-radius': '15px'}).show()
                 .animate({top: '78px', left: (my.left + 3) + 'px'}, 1000, 'easeOutBounce', function () {
                     $(this).fadeOut();
-                    $.get('http://hao.xsldh.com/welcome/customize_favourite', {id: id});
+                    $.get('#', {id: id});
                 });
         });
 
