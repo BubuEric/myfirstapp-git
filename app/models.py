@@ -11,7 +11,6 @@ from app import db
 # db = SQLAlchemy(app)
 
 
-
 class Admin(db.Model):
     __tablename__ = "admin"
     id = db.Column(db.INTEGER, primary_key=True)  # 编号
